@@ -9,4 +9,15 @@ function showTime() {
 setInterval(showTime, 1000);
 
 for (let t = startTime; t <= endTime; t++) {
-    const hourStr = `${t % 12 || 12}:00 ${t > 11 ? "PM" : "AM"}`;
+  const hourStr = `${t % 12 || 12}:00 ${t > 11 ? "PM" : "AM"}`;
+  const row = $("<div>").addClass("row time-block");
+  const hourElement = $("<p>").addClass("hour").text(hourStr);
+  const textArea = $("<textarea>").addClass("description");
+  if (t < currentTime) textArea.addClass("past");
+  else if (t === currentTime) textArea.addClass("present");
+  else textArea.addClass("future");
+
+  btn.append($("<i>").addClass("far fa-save"));
+  row.append(hourElement, textArea, btn);
+  timeBlockContainer.append(row);
+}
